@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EFFSQNF14P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-EFFSQNF14P');
+    </script>
+</head>
+<body>
+    <style>
+        body {
+            background-color: #DAE8C2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Didact Gothic", Helvetica, sans-serif;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+padding-left: 10px;
+padding-top: 10px;
+padding-right: 10px;
+padding-bottom: 10px;
+            width: 980px;
+            height: 660px;
+            background-image: url('https://images.pexels.com/photos/235970/pexels-photo-235970.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #fff;
+            border-radius: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: Michroma, Helvetica, sans-serif;
+            color: #D3666E;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cell.revealed {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 0px;
+            font-size: 0px;
+        }
+
+        .cell.active {
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .cell.inactive {
+            background-color: rgba(255, 255, 255, 0.95);
+            pointer-events: none;
+        }
+
+        .popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            max-width: 100%;
+            max-height: 100%;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .popup img, .popup video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .popup h3 {
+            margin: 0;
+            font-family: Michroma, Helvetica, sans-serif;
+        }
+
+        .popup-content {
+            margin-top: 10px;
+        }
+
+        .popup.active {
+            display: block;
+        }
+    </style>
+
+<div class="calendar" id="calendar">
+    <div class="cell" id="day-13" onclick="openPopup(13)">13</div>
+    <div class="cell" id="day-17" onclick="openPopup(17)">17</div>
+    <div class="cell" id="day-3" onclick="openPopup(3)">3</div>
+    <div class="cell" id="day-6" onclick="openPopup(6)">6</div>
+    <div class="cell" id="day-10" onclick="openPopup(10)">10</div>
+    <div class="cell" id="day-21" onclick="openPopup(21)">21</div>
+    <div class="cell" id="day-7" onclick="openPopup(7)">7</div>
+    <div class="cell" id="day-5" onclick="openPopup(5)">5</div>
+    <div class="cell" id="day-15" onclick="openPopup(15)">15</div>
+    <div class="cell" id="day-24" onclick="openPopup(24)">24</div>
+    <div class="cell" id="day-19" onclick="openPopup(19)">19</div>
+    <div class="cell" id="day-4" onclick="openPopup(4)">4</div>
+    <div class="cell" id="day-14" onclick="openPopup(14)">14</div>
+    <div class="cell" id="day-22" onclick="openPopup(22)">22</div>
+    <div class="cell" id="day-18" onclick="openPopup(18)">18</div>
+    <div class="cell" id="day-1" onclick="openPopup(1)">1</div>
+    <div class="cell" id="day-12" onclick="openPopup(12)">12</div>
+    <div class="cell" id="day-16" onclick="openPopup(16)">16</div>
+    <div class="cell" id="day-9" onclick="openPopup(9)">9</div>
+    <div class="cell" id="day-2" onclick="openPopup(2)">2</div>
+    <div class="cell" id="day-23" onclick="openPopup(23)">23</div>
+    <div class="cell" id="day-20" onclick="openPopup(20)">20</div>
+    <div class="cell" id="day-11" onclick="openPopup(11)">11</div>
+    <div class="cell" id="day-8" onclick="openPopup(8)">8</div>
+</div>
+
+<div class="popup" id="popup" onclick="closePopup()">
+    <div class="popup-content" id="popup-content"></div>
+</div>
+
+<script>
+    // Set the current day (this could be dynamic based on actual date)
+    let currentDay = new Date().getDate();
+//    let currentDay = 2;  
+    // Define content for each day
+    const popupData = {
+             1: { title: "Project end on New Year's Eve?", text: "Set your project deadline when nobody's in office?<br>Here's your quick survival guide:<ul><li><b>Take a deep breath</b>: don't panic, your strategic thinking is more valuable than stress right now.<li><b>Communicate transparently</b>: reach out to all stakeholders immediately, showing you're proactively managing potential complications.<li><b>Adjust realistically</b>: consider sliding the official completion date to the first or second work week in January.<li><b>Ruthlessly prioritize</b>: identify which tasks are non-negotiable and which can realistically be postponed.</ul>", media: "<img src='https://raw.githubusercontent.com/fturel/dp_material/refs/heads/main/Project%20_ending_on_Dec31.jpg' alt='Project Manager trying to convince team members to work in the middle of a New Year''s Eve party'>" },
+        2: { title: "Multicultural check", text: "Some teams in your international project might not have holidays. Make sure that teams from different geographies get the right support and can take advantage of that time.<p>On the other hand, remember that it works the other way around: does your plan keep Kiwali, Ramadan, Golden Weeks, Hanukkah and others into consideration?", media: "<img src='https://github.com/fturel/dp_material/blob/main/Santa_on_a_beach.jpg?raw=true' alt='Santa out of context'>" },
+        3: { title: "Schedule 1:1 check-ins", text: "Hold individual meetings with each team member to discuss their workload, holiday availability, and any potential concerns. Clearly communicate expectations and emergency contact information.", media: "<img src='https://github.com/fturel/dp_material/blob/main/1to1meeting.jpg?raw=true' alt='A man and a woman discussing a plan, writing on an agenda'>" },
+        4: { title: "Adjust project timelines", text: "On the basis of the information you have collected with 1:1 check-ins (see December 3rd), review and update project timelines, factoring in potential holiday delays and absences.", media: "<img src='https://github.com/fturel/dp_material/blob/main/Replanning.jpg?raw=true' alt='Photo showing a planning session'>" },
+        5: { title: "Review Project finances", text: "Conduct a thorough review of project budgets, expenses, and financial forecasts. Ensure all documentation is up-to-date and ready for end-of-period reporting and yearly closure.", media: "<img src='https://github.com/fturel/dp_material/blob/main/Accounting_books.jpg?raw=true' alt='Accounting books for the old and for the new year'>" },
+        6: { title: "Hold a pre-holiday Team Huddle", text: "Schedule a brief team meeting to align everyone on holiday expectations, communication protocols, and any critical tasks requiring attention during the reduced activity period.", media: "<img src='https://github.com/fturel/dp_material/blob/main/Huddle.jpg?raw=true' alt='Members of a sports team in a huddle'>" },
+        7: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        8: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        9: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        10: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        11: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        12: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        13: { title: "", text: "Day 3 content", media: "<video controls><source src='https://www.w3schools.com/html/movie.mp4' type='video/mp4'></video>" },
+        14: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        15: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        16: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        17: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        18: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        19: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        20: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        21: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        22: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        23: { title: "", text: "Day 3 content", media: "<img src='https://via.placeholder.com/150' alt='Image'>" },
+        24: { title: "", text: "Day 24 content", media: "<audio controls><source src='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' type='audio/mp3'></audio>" }
+    };
+
+
+// Dec 7th: Establish Emergency Communication Channels: Set up clear and simple communication protocols for urgent matters. This could include a dedicated Slack channel, email group, or group chat for key team members.
+// Dec 8th: Define Escalation Procedures: Create a clear escalation matrix that defines who should be contacted for different types of issues during the festive period. Include their contact information and areas of responsibility.
+// Dec 9th: Prepare Reports in Advance: Prepare preliminary reports and dashboards that can be easily updated and shared upon the team's return, minimizing administrative work in the new year.
+// Dec 10th: Create a Holiday Project Guide: Create a centralized document outlining emergency protocols, key contact information, and critical project details. This will serve as a quick reference guide for the team during the holidays.
+// Dec 11th: Develop a Contingency Plan: Develop a contingency plan for critical project components that might require immediate attention during the festive period. Identify backup team members or establish clear escalation protocols for urgent issues.
+// Dec 12th: Declutter Project Folders: Conduct a thorough cleanup of all project folders, organizing files and removing any digital clutter. Ensure a clean and organized digital workspace for the new year.
+// Dec 13th: Prioritize, Prioritize, Prioritize: Create detailed task prioritization guidelines to help team members make informed decisions about which tasks are critical and which can wait until after the holidays.
+// Dec 14th: Plan for Your Return: Review and prioritize pending tasks, creating a clear action plan for the team's return. Identify which tasks can be completed remotely and which require in-person collaboration.
+// Dec 15th: Brief Stakeholders: Prepare a comprehensive email briefing for stakeholders, summarizing the project's current status, achievements, potential challenges, and the plan for the upcoming period of reduced activity.
+// Dec 16th: Resource Inventory Check: Conduct a quick inventory of critical project resources. Ensure that all necessary tools, access credentials, and materials are in order and easily accessible if needed.
+// Dec 17th: Optimize Communication Channels: Review and update project communication channels. Ensure that remote communication tools are functioning correctly and that all team members have the necessary access.
+// Dec 18th: Prepare Onboarding Materials: Create a streamlined onboarding or refresh document for any new or returning team members who might join shortly after the festive period.
+// Dec 19th: Develop a "Rapid Restart" Guide: Create a "rapid restart" protocol to help the team quickly re-engage with the project after the festive period. Include checklists, priority lists, and quick-reference materials.
+// Dec 20th: Set Up Automated Responses: Set up automated email responses to manage expectations about response times during the holidays. Provide alternative contact information for urgent matters.
+// Dec 21st: Spread Holiday Cheer: Prepare a welcome-back package for the team, including a motivational message, a summary of achievements, and a positive outlook for the upcoming project phases.
+// Dec 22nd: Brainstorm "What If?" Scenarios: Imagine the most ridiculous things that could go wrong with your project (rogue coffee machines, llama invasions, etc.) and create a one-paragraph solution for each. This is a fun way to think outside the box about potential problems.
+// Dec 23rd: Cultivate Good Project Karma: Create a pre-festivity checklist that covers not just practical project needs but also includes a section for cultivating good vibes, positive energy, and good project karma.
+// Dec 24th: Relax, Reflect, and Recharge: Take time for personal reflection and planning. Use the quieter period to strategize and develop innovative approaches for upcoming project stages.
+
+
+    // Set cell statuses based on current day
+    function setCellStatuses() {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            const day = parseInt(cell.id.split('-')[1]);
+
+            if (day < currentDay) {
+                cell.classList.add('revealed');
+                cell.classList.remove('active', 'inactive');
+            } else if (day == currentDay) {
+                cell.classList.add('active');
+                cell.classList.remove('revealed', 'inactive');
+            } else {
+                cell.classList.add('inactive');
+                cell.classList.remove('revealed', 'active');
+            }
+        });
+    }
+
+    // Open popup with the content for the clicked day
+    function openPopup(day) {
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popup-content');
+        popupContent.innerHTML = `
+            <h3>${day}. ${popupData[day].title}</h3>
+            <p>${popupData[day].text}</p>
+            <div>${popupData[day].media}</div>
+        `;
+        popup.classList.add('active');
+        // Mark the current day as revealed after click
+        document.getElementById(`day-${day}`).classList.add('revealed');
+        document.getElementById(`day-${day}`).classList.remove('active');
+    }
+
+    // Close popup
+    function closePopup() {
+        document.getElementById('popup').classList.remove('active');
+    }
+
+    // Initialize the calendar
+    window.onload = function() {
+        setCellStatuses();
+    };
+</script>
+
+</body>
+</html>
